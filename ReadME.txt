@@ -7,3 +7,6 @@ Authors: Erik Almaguer
 Group name: Garbage Collector
 
 For specifications, refer to the SRS Document included in this repo.
+
+
+EVERYTHING IN THIS REPO IS WORK IN PROGRESS.
