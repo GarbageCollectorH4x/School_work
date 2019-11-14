@@ -1,6 +1,21 @@
-public class Input{
+//team: garbage collector
+
+
+public class Input
+{
 	
-	private Scanner		in_keyboard;
-	private Mouse		in_mouse;
+	private Scanner		kb;
+	private Mouse		m;
+	
+	
+	
+	public Input()
+	{
+		
+		kb =			new Scanner(System.in);
+		
+	}
+	
+	
 	
 }
