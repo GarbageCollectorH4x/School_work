@@ -33,7 +33,7 @@ public class Maze
 	
 	
 
-    public Maze(int row, col)
+    public Maze(int row, int col)
 	{
 		
 	

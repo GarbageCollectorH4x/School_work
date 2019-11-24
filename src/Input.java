@@ -4,8 +4,8 @@
 public class Input
 {
 	
-	private Scanner		kb;
-	private Mouse		m;
+	public Scanner		kb;
+	//public Mouse		m;
 	
 	
 	
