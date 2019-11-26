@@ -9,13 +9,13 @@ import java.util.ArrayList;
 import java.util.List;
  
 
-public class TriviaQuestion{
+public class Database{
 
     private static String      question;
     private static String      answer;
     private static String      hint;
    
-    static ArrayList<TriviaQuestion> questionList = new ArrayList<TriviaQuestion>();
+    static ArrayList<String> questions = new ArrayList<String>();
 
 
    //Constructor
@@ -34,7 +34,7 @@ public class TriviaQuestion{
         //String MultChoiceDBPath = "jdbc:sqlite:C:/Users/kdudani/Desktop/Triviaquestions/MazeTriviaQuestions.db";
         //String TrueFalseDBPath = "jdbc:sqlite:C:/Users/kdudani/Desktop/Triviaquestions/MazeTrueFalse.db";
         //String ShortAnsDBPath = "jdbc:sqlite:C:/Users/kdudani/Desktop/Triviaquestions/ShortAnswer.db";
-
+        
         String MultChoiceDBPath = "jdbc:sqlite:C:/Users/Dell/Desktop/GitWork/classwork/School_work/Triviaquestions/MazeTriviaQuestions.db";
         String TrueFalseDBPath = "jdbc:sqlite:C:/Users/Dell/Desktop/GitWork/classwork/School_work/Triviaquestions/MazeTrueFalse.db";
         String ShortAnsDBPath = "jdbc:sqlite:C:/Users/Dell/Desktop/GitWork/classwork/School_work/Triviaquestions/ShortAnswer.db";
@@ -59,11 +59,10 @@ public class TriviaQuestion{
        
         try (Connection conn = this.connection();
              Statement stmt  = conn.createStatement();
-             ResultSet rst    = stmt.executeQuery(str)) {
+             ResultSet resultset    = stmt.executeQuery(str)) {
            
-            while (rst.next()) {
-               TriviaQuestion question = new TriviaQuestion(rst.getString("question"), rst.getString("correctAnswer"), rst.getString("hint"));
-                questionList.add(question);
+            while (resultset.next()) {
+                questions.add(resultset.getString("question"));
             }
         }
         catch (SQLException e) {
@@ -74,7 +73,7 @@ public class TriviaQuestion{
    public static void main(String[] args) {
         TriviaQuestion trivia = new TriviaQuestion(question, answer, hint);
         trivia.selectAll();
-        System.out.println(questionList);
+        System.out.println(questions);
 
         }
     }
