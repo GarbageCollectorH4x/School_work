@@ -1,8 +1,9 @@
 /*team: garbage collector*/
 
 import java.util.ArrayList;
+import java.util.Collections;
 
-public class MultipleChoice implements TriviaQuestion{
+public class MultipleChoice extends TriviaQuestion{
 
     private ArrayList<String>   choiceList;
 

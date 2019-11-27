@@ -1,6 +1,6 @@
 /*team: garbage collector*/
 
-public class ShortAnswer implements TriviaQuestion
+public class ShortAnswer extends TriviaQuestion
 {
 
 
@@ -17,10 +17,10 @@ public class ShortAnswer implements TriviaQuestion
 
     public boolean checkAnswer(String ans)
     {
-
-
+    	
         //needs to implement a way to check short answers
-
+    	System.out.println("ShortAnswer.checkAnswer() NOT FINISHED!!!");
+    	return false;
 
     }
 

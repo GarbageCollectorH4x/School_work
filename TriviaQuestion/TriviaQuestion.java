@@ -1,8 +1,7 @@
 //team: garbage collector
 
-import java.util.ArrayList;
 
-public class TriviaQuestion
+public abstract class TriviaQuestion
 {
 	
 	

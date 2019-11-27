@@ -1,11 +1,11 @@
 /*team: garbage collector*/
 
-public class TrueFalse implements TriviaQuestion
+public class TrueFalse extends TriviaQuestion
 {
 
 
 
-    TrueFalse(String q, char ans, String hint)
+    TrueFalse(String q, String ans, String hint)
     {
         super(q,ans,hint);
     }
