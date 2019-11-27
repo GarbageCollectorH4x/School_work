@@ -1,78 +1,35 @@
 //team: garbage collector
 
+import java.io.Serializable;
 import java.util.Scanner;
 
-public class Player
-{
-	
+public class Player implements Serializable {
 
-    private String      p_name;
-	private Input		p_input;
-	
-	private int			pos_x;
-	private int			pos_y;
+    private String p_name;
+    private int[] location;
 
-
-    public Player(String name, int px, int py, Input in)
-	{
-		
-        this.p_name =     	name;
-		
-		
-		this.pos_x = 		px
-		this.pos_y =		py;
-		
-		
-		this.p_input =		in;
-		
-		
+    public Player()
+    {
+        this.p_name = readPlayerName();
+        location = new int[2];
     }
-	
-	public Player()
-	{
-		
-		
-		this.p_input =		new Input();
-		
-		this.promptPlayerName();
-		
-		this.p_name =		this.getStringInput();
-		
-		
-	}
-	
-	
-	public String getStringInput()
-	{
-		
-		String temp = 	this.p_input.kb.nextLine();
-		
-		
-		return 			temp;
-		
-	}
-		
 
-	private void promptPlayerName()
-	{
-		
-		System.out.print("\nEnter player name: ");
-		
-	}
-	
-	public int x()
-	{
-		
-		return		this.pos_x;
-		
-	}
-	
-	public int y()
-	{
-		
-		return		this.pos_y;
-	
-	}
-	
+    private static String readPlayerName()
+    {
+        Scanner input = new Scanner(System.in);
 
+        System.out.println("Enter player name.");
+        return input.nextLine();
+    }
+    public void setLocation(int x, int y)
+    {
+        int [] newloc = new int[2];
+        newloc[0] = x;
+        newloc[1] = y;
+        location = newloc;
+    }
+    public int[] getLocation()
+    {
+        return location;
+    }
 }

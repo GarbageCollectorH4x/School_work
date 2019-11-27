@@ -1,8 +1,7 @@
 //team: garbage collector
 
-import java.util.ArrayList;
 
-public class TriviaQuestion
+public abstract class TriviaQuestion
 {
 	
 	
@@ -13,16 +12,11 @@ public class TriviaQuestion
 
 
 
-    private ArrayList<String>   choiceList;
-
-
-
-	private boolean     solved;
+	protected boolean     solved;
 	
 	
 
-
-    public TriviaQuestion(String q, String a, String h, String fa0, String fa1, String fa2)
+    public TriviaQuestion(String q, String a, String h)
 	{
 
         this.question = 	q;
@@ -32,15 +26,6 @@ public class TriviaQuestion
     
         this.solved =       false;
 		
-    
-        this.choiceList = new ArrayList<String>();
-        this.choiceList.add( answer );
-        this.choiceList.add( fa0 );
-        this.choiceList.add( fa1 );
-        this.choiceList.add( fa2 );
-
-    
-        Collections.shuffle( this.choiceList );
 
     }
 
@@ -49,16 +34,7 @@ public class TriviaQuestion
     public void readQuestion()
     {
 
-        System.out.println( question );
-
-
-        
-        for(int i = 0;   i < this.choiceList.size();  i++)
-        {
-
-            System.out.println(  (i+1) + ")" + this.choiceList.get( i )  );
-
-        }
+        System.out.println( this.question );
 
     }
 
@@ -73,42 +49,14 @@ public class TriviaQuestion
 
 
 
-    public boolean checkAnswer(String input)
+    protected boolean checkAnswer(String input)
     { 
 
-
-        int inputNum = Integer.parseInt( input );
-        
-
-        if( (inputNum <= this.choiceList.size()) && inputNum > 0 )
-        {
-            
-
-            inputNum--;
+        if( this.answer.equals( input ) )
+            this.solved = true;
 
 
-            if( this.answer.equals( this.choiceList.get( inputNum ) ) )
-            {
-
-
-                this.solved = true;
-            
-            
-            }
-
-
-        }
-        else
-        {
-
-
-            System.out.println( "WARNING:INVALID INPUT -> '" + input + "''");
-
-
-        }
-
-
-        return      this.solved;
+        return this.solved;
 
 
     }
@@ -122,4 +70,6 @@ public class TriviaQuestion
 
     }
 
+
+    
 }//end class TriviaQuestion

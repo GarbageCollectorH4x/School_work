@@ -6,6 +6,8 @@ public class Room
 
 
 	private Door[]			doors;
+	
+	private Character		space;
 
 	//the door array represents each room, each index position is as follows:
 	//
@@ -17,11 +19,12 @@ public class Room
 	//
 
 
-    public Room(Door[] ds)
+    public Room()
 	{
-
-		this.doors =	ds;
-
+    	
+    	this.space = ' ';
+    	this.doors = new Door[4];
+	
     }
 
 
@@ -82,6 +85,59 @@ public class Room
 	}
 
 
+	public void setShowHero(Character show)
+	{
+		
+		this.space = show;
+		
+	}
+	
+	public Character getShowHero()
+	{
+		return this.space;
+	}
+	
+	
+	public String row0()
+	{
+		
+		String temp = "";
+		
+		temp 		+= "*";
+		temp		+= ( doors[0].isWall() ? "*" : "-");
+		temp 		+= "*";
+		
+		return temp;
+		
+	}
+	
+	
+	public String row1()
+	{
+		
+		String temp = "";
+		
+		temp		+= ( doors[3].isWall() ? "*" : "|");
+		temp		+= this.space;
+		temp		+= ( doors[1].isWall() ? "*" : "|");
+		
+		return temp;
+		
+	}
+	
+	
+	public String row2()
+	{
+		
+		String temp = "";
+		
+		temp		+= "*";
+		temp		+= ( doors[2].isWall() ? "*" : "-");
+		temp		+= "*";
+		
+		return temp;
+		
+	}
 	
 	
 	public String[] draw()
@@ -90,17 +146,9 @@ public class Room
 		//each string is a row, each character is a column of a row.
 		String[] temp 	= new String[3];
 
-		temp[0] 		+= "*";
-		temp[0]			+= ( doors[0].isWall() ? "*" : "-");
-		temp[0] 		+= "*";
-
-		temp[1]			+= ( doors[3].isWall() ? "*" : "|");
-		temp[1]			+= " ";
-		temp[1]			+= ( doors[1].isWall() ? "*" : "|");
-
-		temp[2] 		+= "*";
-		temp[2]			+= ( doors[2].isWall() ? "*" : "-");
-		temp[2]			+= "*";
+		temp[0] 		= this.row0();
+		temp[1]			= this.row1();
+		temp[2] 		= this.row2();
 
 		return 			temp;
 

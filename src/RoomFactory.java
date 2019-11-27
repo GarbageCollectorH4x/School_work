@@ -7,8 +7,8 @@ import javax.lang.model.util.ElementScanner6;
 
 public class RoomFactory
 {
-    private final int MAX_ROW = 4;
-    private final int MAX_COL =  4;
+    private final int MAX_ROW = 5;
+    private final int MAX_COL =  5;
 
     private DoorFactory doorMaker;
 
@@ -20,7 +20,7 @@ public class RoomFactory
     }
 
     
-    public Room[][] createSquareRoomMap( ArrayList<TriviaQuestion> questions )
+    public Room[][] createSquareRoomMap(  )
     {
 
         //this equation will give us how many doors total we need to make a square map
@@ -38,14 +38,14 @@ public class RoomFactory
 
         
         //this is assuming there are enough questions/doors to fill a square
-        ArrayList<Door> dList = this.doorMaker.createDoorList( questions );
+        
         int dIndex = 0;
 
 
         for(int i = 0; i < MAX_ROW; i++)
         {
 
-            for(int j = 0; i < MAX_COL; j++)
+            for(int j = 0; j < MAX_COL; j++)
             {
 
 
@@ -54,25 +54,29 @@ public class RoomFactory
 
                 if( i == 0 )
                 {
+                	//System.out.println("i=0 : " + i);
                     nRoom.setUp( this.doorMaker.wall() );
-                    nRoom.setDown( dList.get( dIndex++ ) );
+                    nRoom.setDown( this.doorMaker.createDoor() );
                 }
                 else if( i == MAX_ROW - 1 )
                 {
+                	//System.out.println("i=" + i);
                     nRoom.setUp( rooms[i-1][j].down() );
                     nRoom.setDown( this.doorMaker.wall() );
                 }
                 else
                 {
+                	//System.out.println("i="+ i);
                     nRoom.setUp( rooms[i-1][j].down() );
-                    nRoom.setDown( dList.get( dIndex++ ) );
+                    nRoom.setDown( this.doorMaker.createDoor() );
                 }
 
 
                 if( j == 0 )
                 {
+                	//System.out.println("j=0 : " + j);
                     nRoom.setLeft( this.doorMaker.wall() );
-                    nRoom.setRight( dList.get( dIndex++ ) );
+                    nRoom.setRight( this.doorMaker.createDoor() );
                 }
                 else if( j == MAX_COL - 1 )
                 {
@@ -82,10 +86,10 @@ public class RoomFactory
                 else
                 {
                     nRoom.setLeft( rooms[i][j-1].right() );
-                    nRoom.setRight( dList.get( dIndex++ ) );
+                    nRoom.setRight( this.doorMaker.createDoor() );
                 }                
 
-
+                
                 rooms[i][j] =   nRoom;
 
             }

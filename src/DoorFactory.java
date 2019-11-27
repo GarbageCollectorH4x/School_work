@@ -2,8 +2,6 @@
 
 import java.util.ArrayList;
 
-import javax.lang.model.util.ElementScanner6;
-
 public class DoorFactory
 {
 
@@ -21,10 +19,10 @@ public class DoorFactory
 
 
 
-    public Door createDoor(TriviaQuestion question)
+    public Door createDoor()
     {
         
-        return new Door(question);
+        return new Door();
 
     }
 
@@ -39,15 +37,15 @@ public class DoorFactory
 
 
 
-    public ArrayList<Door> createDoorList(ArrayList<TriviaQuestion> questions)
+    public ArrayList<Door> createDoorList( int amt)
     {
 
         ArrayList<Door> temp = new ArrayList<Door>();
 
-        for(TriviaQuestion q : questions)
+        for(int i = 0; i < amt; i++)
         {
 
-            Door newDoor = new Door(q);
+            Door newDoor = new Door();
             
             temp.add( newDoor );
 
@@ -59,7 +57,7 @@ public class DoorFactory
 
 
 
-    public Door[][] createSquareDoorMap( ArrayList<TriviaQuestion> questions, int row, int col )
+    public Door[][] createSquareDoorMap( int row, int col )
     {
 
         Door[][] doorMap =      new Door[ row+2 ][ col+2 ];
@@ -81,13 +79,13 @@ public class DoorFactory
                 ||  j == col+1  )
                 {
 
-                    doopMap[i][j] =     this.wallRef;
+                	doorMap[i][j] =     this.wallRef;
 
                 }
                 else
                 {
                     
-                    doorMap[i][j] =     new Door( questions.get(qIndex++) );
+                    doorMap[i][j] =     new Door(  );
 
                 }
 

@@ -14,18 +14,13 @@ public class Door
 	private boolean				isWall;
 	
 	
-	private TriviaQuestion		question;
 	
-	
-	
-	public Door(TriviaQuestion door_question)
+	public Door()
 	{
 		
 		this.isLocked =		 	true;
 		this.isPermaLocked = 	false;
-		
-
-		this.question =			door_question;
+		this.isWall = 			false;
 		
 	}
 
@@ -51,68 +46,13 @@ public class Door
 	}
 
 	
-
-	public void readQuestion()
-	{
-
-		this.question.readQuestion();
-
-	}
-	
-
-
-	public void readHint()
-	{
-		if(this.isWall)
-			return;
-
-		this.question.readHint();
-
-
-	}
-
-
-
-	public boolean checkAnswer(String input)
-	{
-
-
-		if(this.isWall)
-			return false;
-
-
-		if(!this.isPermaLocked)
-		{
-			
-
-			this.isLocked = !this.question.checkAnswer(input);
-
-
-			if( this.isLocked )
-				this.isPermaLocked = true;
-
-
-		}
-
-
-		return 			this.isLocked;
-
-
-	}
-
-
-	
 	
 	public boolean isLocked()
 	{
 		
 
-		if(this.isWall)
-			return false;
-		
-		
-		if(this.isPermaLocked)
-			return this.isPermaLocked;
+		if(this.isWall || this.isPermaLocked)
+			return true;
 		
 		
 		return this.isLocked;
