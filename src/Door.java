@@ -31,6 +31,7 @@ public class Door
 		//pass true if you want to create a wall
 		//all other fields in this class wlll be ignored if this value is set to true
 		this.isWall =		wall;
+		this.isPermaLocked = wall;
 
 	}
 	
@@ -44,8 +45,32 @@ public class Door
 
 
 	}
-
 	
+	
+	public void setLock( boolean lock )
+	{
+		
+		//if question was answered right, doors locks will be set to an unlocked state(false)
+		this.isPermaLocked = !lock;
+		this.isLocked = !lock;
+		
+	}
+	
+
+	public boolean isPermaLocked()
+	{
+		
+		return this.isPermaLocked;
+		
+	}
+	
+	
+	public boolean canInteract()
+	{
+		
+		return this.isLocked && ( !this.isPermaLocked && !this.isWall );
+		
+	}
 	
 	public boolean isLocked()
 	{

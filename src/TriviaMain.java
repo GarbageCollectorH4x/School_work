@@ -1,4 +1,6 @@
 import java.io.*;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
@@ -6,25 +8,36 @@ public class TriviaMain
 {
     public static void main(String[] args)
     {
+    	
         do {
-
+        	
+        	Database db = new Database();
+        	Iterator<TriviaQuestion> qList = db.getList().iterator();
             Player player1 = new Player();
             Maze maze = new Maze(player1);
             int menuNumber;
             maze.printMazeroom();
             do {
+            	
                 menuNumber = menu();
                 if (menuNumber == 1) {
-                    movePlayer(maze);
+                	
+                    movePlayer(maze, qList);
                     maze.enterRoom();//enter room or ask question then enter room also check if we are at E if we are we win.
                     maze.printMazeroom();
+                    
                 }
                 else if(menuNumber == 2)
                 {
+                	
                     try{
+                    	
                         saveGame(maze,player1);
+                        
                     } catch (IOException | ClassNotFoundException e) {
+                    	
                         e.printStackTrace();
+                        
                     }
 
                 }
@@ -49,24 +62,37 @@ public class TriviaMain
         }while(playAgain());
     }
 
+    
+    
    private static int menu()
    {
        String input;
        int choice;
        boolean correctinput;
        Scanner kb = new Scanner(System.in);
+       
        do
        {
+    	   
            System.out.println("1.Move");
            System.out.println("2.Save");
            System.out.println("3.Load");
            System.out.println("4.QUIT");
            input = kb.nextLine();
+           
            correctinput = Pattern.matches("[1-5]",input);
+           
        }while(!correctinput);
+       
+       
        choice= Integer.parseInt(input);
+       
+       
        return choice;
+       
    }
+   
+   
 
     private static boolean playAgain()
     {
@@ -85,34 +111,93 @@ public class TriviaMain
         else correctinput = false;
         return correctinput;
     }
-    private static void movePlayer(Maze maze)
+    
+    
+    
+    private static void movePlayer(Maze maze, Iterator<TriviaQuestion> qList)
     {
+    	
+    	
         int choice;
+        
         Scanner kb = new Scanner(System.in);
-        do {
+        
+        
 
-            System.out.println(" make your move?");
-            System.out.println("1) up");
-            System.out.println("2) down");
-            System.out.println("3) left");
-            System.out.println("4) right");
-            choice = kb.nextInt();
-            if(!checkmove(maze, choice))
-            {
-                System.out.println("can't move that way");
-            }
-        } while (!checkmove(maze,choice));
+        	
+        System.out.println(" make your move?");
+        System.out.println("1) up");
+        System.out.println("2) down");
+        System.out.println("3) left");
+        System.out.println("4) right");
+            
+            
+        choice = kb.nextInt();
+        kb.nextLine();
+        
 
-        int[] loc=maze.getPlayer1().getLocation();
+        Door door = getDoor(maze, choice);
+        
+        if( !door.isPermaLocked() )//if door is answered wrong or its a wall
+        {
+        	
+        	if( door.isLocked() )//if question hasnt been asked/answered yet
+        	{
+        		
+        		//answer question
+        		TriviaQuestion question = qList.next();
+        		
+        		question.readQuestion();
+        		question.readHint();
+        		
+        		
+        		
+        		String input = kb.nextLine();
+        		
+        		//get player input
+        		
+        		
+        		boolean answer = question.checkAnswer(input); //questionList.checkAnswer();
+        		
+        		door.setLock( answer );
+        		
+        	}
+        	
+        	
+        	if( !door.isLocked() )//if question has been answered correctly
+        	{
+        		setPlayerLoc(choice, maze);
+        	}
+        	
+        	
+        }
+        else
+        {
+        	
+        	System.out.println("You cannot move there!");
+        	
+        }
+        
+        
+        
+        
+    }
+    
+    
+    private static void setPlayerLoc(int choice, Maze maze)
+    {
+    	int[] loc=maze.getPlayer1().getLocation();
         int r=loc[0];
         int c=loc[1];
         int newRow;
         int newColumn;
-
-        if(choice==1)
+        
+    	if(choice==1)
         {
+        	
             newRow=r-1;
             maze.getPlayer1().setLocation(newRow,c);
+            
         }
         else if(choice==2)
         {
@@ -129,44 +214,51 @@ public class TriviaMain
             newColumn=c+1;
             maze.getPlayer1().setLocation(r,newColumn);
         }
+        
+    	
+    	
     }
-    private static boolean checkmove(Maze maze,int choice)
+    
+    
+    
+    private static Door getDoor(Maze maze, int choice)
     {
     	
-    	
-        int[] loc=maze.getPlayer1().getLocation();
-        
-        
-        int r=loc[0];
-        int c=loc[1];
+    	 int[] loc=maze.getPlayer1().getLocation();
+         
+         
+         int r=loc[0];
+         int c=loc[1];
 
-        
-        Room room =  maze.getRoom(r, c);
-        
-        
-        if(choice==1)
+         
+         Room room =  maze.getRoom(r, c);
+    	
+    	if(choice==1)
         {
-            return  !room.up().isLocked();
+            return  room.up();
 
         }
         else if(choice==2)
         {
-        	return  !room.down().isLocked();
+        	return  room.down();
 
         }
         else if(choice==3)
         {
-        	return  !room.left().isLocked();
+        	return  room.left();
 
-        }
-        else if(choice==4)
-        {
-        	return  !room.right().isLocked();
         }
         
-
-        return false;
+        
+        return  room.right();
+        
+    	
+    
+    	
     }
+    
+    
+    
     private static void saveGame(Maze maze, Player p1) throws IOException, ClassNotFoundException
     {
         FileOutputStream fileout = new FileOutputStream("SavedGame.txt");

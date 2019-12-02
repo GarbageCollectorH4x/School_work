@@ -35,6 +35,8 @@ public class Maze implements Serializable {
         int column = 0;
         player1.setLocation(row,column);
     }
+    
+    
     public void printMazeroom()
     {
         int[] heroloc=player1.getLocation();
@@ -46,64 +48,128 @@ public class Maze implements Serializable {
         System.out.println(room[1]);
         System.out.println(room[2]);
     }
+    
+    
     public void displayTheDungeon()
     {
 
         int[] herolocation=player1.getLocation();
         maze[herolocation[0]][herolocation[1]].setShowHero('H');
+        
+        
         for(int r=0;r<5;r++)
         {
+        	
+        	
             String[] rowstr= new String[3];
+            
+            
             rowstr[0]="";
             rowstr[1]="";
             rowstr[2]="";
+            
+            
             for(int c=0;c<5;c++)
             {
-                //String[] row=maze[r][c].toString().split("\n");
+      
                 rowstr[0]+=maze[r][c].row0();
                 rowstr[1]+=maze[r][c].row1();
                 rowstr[2]+=maze[r][c].row2();
+                
             }
             for(int x=0;x<3;x++)
             {
+            	
                 System.out.println(rowstr[x]);
+                
             }
         }
+        
         maze[herolocation[0]][herolocation[1]].setShowHero(' ');
     }
+    
+    
     private void setExit()
     {
+    	
+    	
         maze[4][4].setShowHero('E');
+        
+        
     }
+    
+    
+    
     public void enterRoom()
     {
+    	
+    	
         int[] loc=player1.getLocation();
+        
         int r=loc[0];
         int c=loc[1];
+        
+        maze[r][c].visit();
+        
         if(maze[r][c].getShowHero() == 'E')
         {
+        	
+        	
             if(checkForWin())
             {
+            	
                 System.out.println("congrats you win");
+                
             }
             else
                 System.out.println("You are not at the end yet.");
+        
         }
+    
+    
     }
+    
+    
+    
     public boolean checkForWin()
     {
+    	
+    	
         int[] loc = player1.getLocation();
+        
         return loc[0] == 4 && loc[1] == 4;
+        
+        
     }
     
-    
+    public int checkPossMoves()
+    {
+    	int count = 0;
+    	
+    	
+    	for(int i = 0; i < this.maze.length; i++)
+    	{
+    		
+    		for(int j = 0; j < this.maze[i].length; i++)
+    		{
+    			
+    			if( this.maze[i][j].hasBeenVisited() )
+    				count += this.maze[i][j].availInteractions();
+    			
+    		}
+    		
+    	}
+    	
+    	
+    	return count;
+    	
+    }
     
     
     public Room getRoom(int x, int y)
     {
     	
     	return this.maze[x][y];
-    	
     	
     }
 }

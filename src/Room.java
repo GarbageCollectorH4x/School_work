@@ -8,6 +8,8 @@ public class Room
 	private Door[]			doors;
 	
 	private Character		space;
+	
+	private boolean			visited;
 
 	//the door array represents each room, each index position is as follows:
 	//
@@ -24,10 +26,14 @@ public class Room
     	
     	this.space = ' ';
     	this.doors = new Door[4];
+    	this.visited = false;
 	
     }
 
-
+    public void visit()
+    {
+    	this.visited = true;
+    }
 	
 	public Door up()
 	{
@@ -92,6 +98,27 @@ public class Room
 		
 	}
 	
+	
+	public boolean hasBeenVisited()
+	{
+		return this.visited;
+	}
+	
+	
+	public int availInteractions()
+	{
+		int count = 0;
+		
+		for(int i = 0; i < this.doors.length; i++)
+		{
+			if( this.doors[i].canInteract())
+				count++;
+		}
+		
+		return count;
+	}
+	
+	
 	public Character getShowHero()
 	{
 		return this.space;
@@ -152,6 +179,15 @@ public class Room
 
 		return 			temp;
 
+	}
+	
+	
+	
+	public boolean trapped()
+	{
+		
+		return ( doors[0].isLocked() && doors[1].isLocked() && doors[2].isLocked() && doors[3].isLocked() );
+		
 	}
 
 
