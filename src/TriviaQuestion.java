@@ -1,7 +1,9 @@
 //team: garbage collector
 
 
-public abstract class TriviaQuestion
+import java.io.Serializable;
+
+public abstract class TriviaQuestion implements Serializable
 {
 	
 	

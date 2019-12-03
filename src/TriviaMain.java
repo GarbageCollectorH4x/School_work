@@ -29,12 +29,17 @@ public class TriviaMain
                 }
                 else if(menuNumber == 2)
                 {
-                	
+                    ArrayList<TriviaQuestion>toBeSaved = new ArrayList<TriviaQuestion>();
                     try{
-                    	
-                        saveGame(maze,player1);
+
+                        while(qList.hasNext())
+                        {
+                            toBeSaved.add(qList.next());
+                        }
+                        saveGame(maze,player1,toBeSaved);
+                        qList = toBeSaved.iterator();
                         
-                    } catch (IOException | ClassNotFoundException e) {
+                    } catch (IOException  e) {
                     	
                         e.printStackTrace();
                         
@@ -44,9 +49,12 @@ public class TriviaMain
                 else if(menuNumber == 3)
                 {
                     try{
+                        ArrayList<TriviaQuestion> listholder = new ArrayList<TriviaQuestion>();
                         ObjectInputStream fileIn = loadGame("SavedGame.txt");
                         maze =  (Maze) fileIn.readObject();
                         player1 = (Player) fileIn.readObject();
+                        listholder = (ArrayList<TriviaQuestion>) fileIn.readObject();
+                        qList = listholder.iterator();
                     }catch (IOException | ClassNotFoundException e)
                     {
                         System.out.println("no saved Game");
@@ -259,12 +267,13 @@ public class TriviaMain
     
     
     
-    private static void saveGame(Maze maze, Player p1) throws IOException, ClassNotFoundException
+    private static void saveGame(Maze maze, Player p1,ArrayList list) throws IOException
     {
         FileOutputStream fileout = new FileOutputStream("SavedGame.txt");
         ObjectOutputStream objout = new ObjectOutputStream(fileout);
         objout.writeObject(maze);
         objout.writeObject(p1);
+        objout.writeObject(list);
         objout.flush();
         objout.close();
     }

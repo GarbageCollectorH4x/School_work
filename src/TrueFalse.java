@@ -1,6 +1,8 @@
 /*team: garbage collector*/
 
-public class TrueFalse extends TriviaQuestion
+import java.io.Serializable;
+
+public class TrueFalse extends TriviaQuestion implements Serializable
 {
 
 

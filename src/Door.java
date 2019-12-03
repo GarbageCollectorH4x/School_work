@@ -1,8 +1,9 @@
 //team: garbage collector
 
 
+import java.io.Serializable;
 
-public class Door
+public class Door implements Serializable
 {
 	
 	
