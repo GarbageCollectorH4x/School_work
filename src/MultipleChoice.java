@@ -3,16 +3,21 @@
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class MultipleChoice extends TriviaQuestion{
+public class MultipleChoice extends TriviaQuestion
+{
 
     private ArrayList<String>   choiceList;
 
+    
     public MultipleChoice(String q, String ans, String hint, 
                         String fa0, String fa1, String fa2){
+    	
         super(q,ans,hint);
         this.setChoiceList(ans, fa0, fa1, fa2);
+        
     }
 
+    
     private void setChoiceList(String cho1, String cho2,
                                 String cho3, String cho4){
         this.choiceList = new ArrayList<String>();
@@ -22,6 +27,7 @@ public class MultipleChoice extends TriviaQuestion{
         this.choiceList.add(cho4);
 
         Collections.shuffle(this.choiceList);
+        
     }
 
 

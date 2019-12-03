@@ -23,13 +23,4 @@ public class TrueFalse extends TriviaQuestion
 
 
 
-    public boolean checkAnswer(String ans)
-    {
-        
-        return super.checkAnswer(ans);
-
-    }
-
-
-
 }

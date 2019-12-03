@@ -49,7 +49,7 @@ public abstract class TriviaQuestion
 
 
 
-    protected boolean checkAnswer(String input)
+    public boolean checkAnswer(String input)
     { 
 
         if( this.answer.equals( input ) )
