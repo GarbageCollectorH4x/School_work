@@ -60,13 +60,18 @@ public class TriviaMain
                         System.out.println("no saved Game");
                     }
 
-
                 }
-                else if (menuNumber == 5) {
+                else if(menuNumber == 4)
+                {
+                    db = databaseUpload(db);
+                    qList = db.getList().iterator();
+                }
+
+                else if (menuNumber == 6) {
                     maze.displayTheDungeon();
                 }
 
-            } while (menuNumber != 4 && !maze.checkForWin());
+            } while (menuNumber != 5 && !maze.checkForWin());
         }while(playAgain());
     }
 
@@ -85,10 +90,11 @@ public class TriviaMain
            System.out.println("1.Move");
            System.out.println("2.Save");
            System.out.println("3.Load");
-           System.out.println("4.QUIT");
+           System.out.println("4.Load new question ");
+           System.out.println("5.QUIT");
            input = kb.nextLine();
            
-           correctinput = Pattern.matches("[1-5]",input);
+           correctinput = Pattern.matches("[1-6]",input);
            
        }while(!correctinput);
        
@@ -99,8 +105,6 @@ public class TriviaMain
        return choice;
        
    }
-   
-   
 
     private static boolean playAgain()
     {
@@ -119,9 +123,7 @@ public class TriviaMain
         else correctinput = false;
         return correctinput;
     }
-    
-    
-    
+
     private static void movePlayer(Maze maze, Iterator<TriviaQuestion> qList)
     {
     	
@@ -190,8 +192,7 @@ public class TriviaMain
         
         
     }
-    
-    
+
     private static void setPlayerLoc(int choice, Maze maze)
     {
     	int[] loc=maze.getPlayer1().getLocation();
@@ -226,9 +227,7 @@ public class TriviaMain
     	
     	
     }
-    
-    
-    
+
     private static Door getDoor(Maze maze, int choice)
     {
     	
@@ -265,8 +264,6 @@ public class TriviaMain
     	
     }
     
-    
-    
     private static void saveGame(Maze maze, Player p1,ArrayList list) throws IOException
     {
         FileOutputStream fileout = new FileOutputStream("SavedGame.txt");
@@ -277,9 +274,78 @@ public class TriviaMain
         objout.flush();
         objout.close();
     }
+
     private static ObjectInputStream loadGame(String fileIn) throws IOException
     {
            FileInputStream In = new FileInputStream(fileIn);
         return new ObjectInputStream(In);
+    }
+
+    private static Database databaseUpload(Database db)
+    {
+        String input;
+        int choice;
+        boolean correctinput;
+        Scanner kb = new Scanner(System.in);
+
+        do
+        {
+
+            System.out.println("What table would you like to upload to?");
+            System.out.println("1.Mulitple Choice");
+            System.out.println("2.True/False");
+            System.out.println("3.ShortAnswer");
+            input = kb.nextLine();
+
+            correctinput = Pattern.matches("[1-3]",input);
+
+        }while(!correctinput);
+
+
+        choice= Integer.parseInt(input);
+        String ques,ans,hint,fa1,fa2,fa3;
+        if(choice == 1)
+        {
+            System.out.println("Enter the question.");
+            ques = kb.nextLine();
+            System.out.println("Enter the correct answer.");
+            ans = kb.nextLine();
+            System.out.println("Enter a hint.");
+            hint = kb.nextLine();
+            System.out.println("Enter a wrong answer.");
+            fa1 = kb.nextLine();
+            System.out.println("Enter another wrong answer.");
+            fa2 = kb.nextLine();
+            System.out.println("Enter another wrong answer.");
+            fa3 = kb.nextLine();
+
+            db.addMultiChoiceQuestion(ques,ans,fa1,fa2,fa3,hint);
+        }
+        else if(choice == 2)
+        {
+            System.out.println("Enter the question.");
+            ques = kb.nextLine();
+            System.out.println("Enter the correct answer.");
+            ans = kb.nextLine();
+            System.out.println("Enter a hint.");
+            hint = kb.nextLine();
+
+            db.addTrueFalseQuestion(ques,ans,hint);
+        }
+        else if(choice == 3)
+        {
+            System.out.println("Enter the question.");
+            ques = kb.nextLine();
+            System.out.println("Enter the correct answer.");
+            ans = kb.nextLine();
+            System.out.println("Enter a hint.");
+            hint = kb.nextLine();
+
+            db.addShortAnsQuestion(ques,ans,hint);
+        }
+
+        db.load();
+
+        return db;
     }
 }
