@@ -40,6 +40,7 @@ class DatabaseTest {
 
         String ans = rst.getString("correctAnswer");
         assertEquals("testing",ans);
+        System.out.println("test passed");
 
         String str1 = "DELETE FROM MultipleChoice where question = \"testing\"";
         Statement stmt1 = conn1.createStatement();

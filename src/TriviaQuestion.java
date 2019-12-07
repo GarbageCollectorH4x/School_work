@@ -22,7 +22,7 @@ public abstract class TriviaQuestion implements Serializable
 	{
 
         this.question = 	q;
-        this.answer =   	a;
+        this.answer =   	a.replaceAll(" ", "").toLowerCase();
         this.hint =			h;
         
     
@@ -51,16 +51,24 @@ public abstract class TriviaQuestion implements Serializable
 
 
 
-    protected boolean checkAnswer(String input)
-    { 
+        public boolean checkAnswer(String input)
+        {
 
-        if( this.answer.equals( input ) )
-            this.solved = true;
+            input = input.replaceAll(" ", "");
+            input = input.toLowerCase();
+
+            if( this.answer.equals( input ) )
+                this.solved = true;
 
 
-        return this.solved;
+            return this.solved;
 
 
+        }
+
+    public String getanswer()
+    {
+        return this.answer;
     }
 
 
