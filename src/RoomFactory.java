@@ -20,7 +20,7 @@ public class RoomFactory
     }
 
     
-    public Room[][] createSquareRoomMap(  )
+    public Room[][] createSquareRoomMap()
     {
 
         //this equation will give us how many doors total we need to make a square map
@@ -101,10 +101,6 @@ public class RoomFactory
         return rooms;
         
     }
-
-    
-
-
 
 }
 

@@ -5,16 +5,9 @@ import java.io.Serializable;
 
 public class Door implements Serializable
 {
-	
-	
-	
 	private boolean				isLocked;
 	private boolean				isPermaLocked;
-	
-
 	private boolean				isWall;
-	
-	
 	
 	public Door()
 	{
@@ -25,8 +18,6 @@ public class Door implements Serializable
 		
 	}
 
-	
-
 	public Door(boolean wall)
 	{
 		//pass true if you want to create a wall
@@ -35,55 +26,37 @@ public class Door implements Serializable
 		this.isPermaLocked = wall;
 
 	}
-	
-
 
 	public boolean isWall()
 	{
-
-
 		return		this.isWall;
-
-
 	}
-	
-	
+
 	public void setLock( boolean lock )
 	{
-		
 		//if question was answered right, doors locks will be set to an unlocked state(false)
 		this.isPermaLocked = !lock;
 		this.isLocked = !lock;
-		
 	}
 	
 
 	public boolean isPermaLocked()
 	{
-		
 		return this.isPermaLocked;
-		
 	}
 	
 	
 	public boolean canInteract()
 	{
-		
 		return this.isLocked && ( !this.isPermaLocked && !this.isWall );
-		
 	}
 	
 	public boolean isLocked()
 	{
-		
-
 		if(this.isWall || this.isPermaLocked)
 			return true;
-		
-		
-		return this.isLocked;
-		
 
+		return this.isLocked;
 	}
 	
 	

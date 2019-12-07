@@ -26,25 +26,14 @@ public class Database{
         this.questionList = new ArrayList<TriviaQuestion>();
         this.load();
     }
-   
-    //Connectv to multiple choice
+
     private Connection connectMultiDB() {
         String MultChoiceDBPath = "jdbc:sqlite:./MazeTriviaQuestions.db";
-        String TrueFalseDBPath = "jdbc:sqlite:./MazeTrueFalse.db";
-        String ShortAnsDBPath = "jdbc:sqlite:./ShortAnswer.db";
-
-        //String MultChoiceDBPath = "jdbc:sqlite:C:/Users/Dell/Desktop/GitWork/classwork/School_work/Triviaquestions/MazeTriviaQuestions.db";
-        //String TrueFalseDBPath = "jdbc:sqlite:C:/Users/Dell/Desktop/GitWork/classwork/School_work/Triviaquestions/MazeTrueFalse.db";
-        //String ShortAnsDBPath = "jdbc:sqlite:C:/Users/Dell/Desktop/GitWork/classwork/School_work/Triviaquestions/ShortAnswer.db";
-
 
         Connection conn = null;
-        Connection conn2 = null;
-        Connection conn3 = null;
+
         try {
              conn = DriverManager.getConnection(MultChoiceDBPath);
-             conn2 = DriverManager.getConnection(TrueFalseDBPath);
-             conn3 = DriverManager.getConnection(ShortAnsDBPath);
         }
         catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -55,12 +44,6 @@ public class Database{
     private Connection connectTrueFalseDB() {
         
         String TrueFalseDBPath = "jdbc:sqlite:./MazeTrueFalse.db";
-        
-
-        //String MultChoiceDBPath = "jdbc:sqlite:C:/Users/Dell/Desktop/GitWork/classwork/School_work/Triviaquestions/MazeTriviaQuestions.db";
-        //String TrueFalseDBPath = "jdbc:sqlite:C:/Users/Dell/Desktop/GitWork/classwork/School_work/Triviaquestions/MazeTrueFalse.db";
-        //String ShortAnsDBPath = "jdbc:sqlite:C:/Users/Dell/Desktop/GitWork/classwork/School_work/Triviaquestions/ShortAnswer.db";
-
 
         
         Connection conn2 = null;
@@ -79,10 +62,6 @@ public class Database{
     private Connection connectShortAnsDB() {
         
         String ShortAnsDBPath = "jdbc:sqlite:./ShortAnswer.db";
-
-        
-        //String ShortAnsDBPath = "jdbc:sqlite:C:/Users/Dell/Desktop/GitWork/classwork/School_work/Triviaquestions/ShortAnswer.db";
-
 
        
         Connection conn3 = null;
