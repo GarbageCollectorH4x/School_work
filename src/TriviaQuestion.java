@@ -20,7 +20,7 @@ public abstract class TriviaQuestion
 	{
 
         this.question = 	q;
-        this.answer =   	a;
+        this.answer =   	a.replaceAll(" ", "").toLowerCase();
         this.hint =			h;
         
     
@@ -51,6 +51,9 @@ public abstract class TriviaQuestion
 
     public boolean checkAnswer(String input)
     { 
+    	
+    	input = input.replaceAll(" ", "");
+    	input = input.toLowerCase();
 
         if( this.answer.equals( input ) )
             this.solved = true;

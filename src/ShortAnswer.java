@@ -11,17 +11,6 @@ public class ShortAnswer extends TriviaQuestion
 
     }
 
-    
-
-    public boolean checkAnswer(String ans)
-    {
-    	
-    	ans = ans.replaceAll(" ", "");
-    	ans = ans.toLowerCase();
-    	
-    	return super.checkAnswer(ans);
-
-    }
 
 
 }
