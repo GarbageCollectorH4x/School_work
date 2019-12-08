@@ -37,4 +37,8 @@ public class Player implements Serializable {
     {
         return location;
     }
+    public String getP_name()
+    {
+        return this.p_name;
+    }
 }

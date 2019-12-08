@@ -159,7 +159,7 @@ public class Maze implements Serializable {
             if(checkForWin())
             {
 
-                System.out.println("congrats you win");
+                System.out.println("congrats " + player1.getP_name() + " you win");
 
             }
             else
@@ -200,7 +200,10 @@ public class Maze implements Serializable {
     		}
     		
     	}
-    	
+    	if(count == 0)
+        {
+            System.out.println("UH OH NO MORE POSSIBLE WAYS TO EXIT MAZE. " + player1.getP_name() + " YOU LOSE!");
+        }
     	
     	return count;
     	

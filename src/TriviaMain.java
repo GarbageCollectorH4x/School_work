@@ -25,7 +25,7 @@ public class TriviaMain implements Serializable {//start class
 
 
                     maze.printMazeroom();
-
+                    System.out.println();
 
                     do {
 
@@ -63,7 +63,7 @@ public class TriviaMain implements Serializable {//start class
                         }
 
 
-                    } while (menuNumber != 4 && !maze.checkForWin());
+                    } while (menuNumber != 4 && !maze.checkForWin() && maze.checkPossMoves() != 0);
 
 
                 } while (playAgain());
@@ -82,7 +82,7 @@ public class TriviaMain implements Serializable {//start class
 
     public static void playerMoveset() {
 
-        System.out.println(" make your move?");
+        System.out.println("make your move?");
         System.out.println("1) up");
         System.out.println("2) down");
         System.out.println("3) left");
@@ -103,6 +103,7 @@ public class TriviaMain implements Serializable {//start class
         movePlayer(maze, qList);
         maze.enterRoom();
         maze.printMazeroom();
+        System.out.println();
 
     }
 
@@ -155,7 +156,7 @@ public class TriviaMain implements Serializable {//start class
 
         do {
 
-            System.out.println("Play again (y/n)?");
+            System.out.println("\nPlay again (y/n)?");
 
             again = kb.nextLine();
             correctinput = Pattern.matches("[YyNn]", again);
@@ -217,9 +218,15 @@ public class TriviaMain implements Serializable {//start class
 
                 door.setLock(answer);
 
-
+                if(answer)
+                {
+                    System.out.println("Correct!");
+                }
+                else
+                {
+                    System.out.println("Incorrect!");
+                }
             }
-
 
             if (!door.isLocked())//if question has been answered correctly
             {
@@ -354,7 +361,7 @@ public class TriviaMain implements Serializable {//start class
 
         do {
 
-            System.out.println("1.Start");
+            System.out.println("1.Start Game");
             System.out.println("2.Load to DB");
             System.out.println("3.Quit");
             input = kb.nextLine();
