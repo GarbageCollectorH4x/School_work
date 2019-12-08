@@ -1,8 +1,6 @@
 /*team: garbage collector*/
 
-import java.io.Serializable;
-
-public class TrueFalse extends TriviaQuestion implements Serializable
+public class TrueFalse extends TriviaQuestion
 {
 
 
@@ -20,15 +18,6 @@ public class TrueFalse extends TriviaQuestion implements Serializable
         super.readQuestion();
 
         System.out.println("T/F");
-
-    }
-
-
-
-    public boolean checkAnswer(String ans)
-    {
-        
-        return super.checkAnswer(ans);
 
     }
 

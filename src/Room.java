@@ -1,8 +1,7 @@
 //team: garbage collector
 
-
 import java.io.Serializable;
-
+ 
 public class Room implements Serializable
 {	
 

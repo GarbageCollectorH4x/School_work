@@ -1,14 +1,14 @@
 /*team: garbage collector*/
 
-import java.io.Serializable;
-
-public class ShortAnswer extends TriviaQuestion implements Serializable
+public class ShortAnswer extends TriviaQuestion
 {
 
 
     public ShortAnswer(String q, String ans, String hint)
     {
+
         super(q, ans, hint);
+
     }
 
 

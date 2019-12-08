@@ -1,11 +1,8 @@
 //team: garbage collector
 
-import java.util.ArrayList;
+import java.io.Serializable;
 
-import javax.lang.model.util.ElementScanner6;
-
-
-public class RoomFactory
+public class RoomFactory implements Serializable
 {
     private final int MAX_ROW = 5;
     private final int MAX_COL =  5;
@@ -20,7 +17,7 @@ public class RoomFactory
     }
 
     
-    public Room[][] createSquareRoomMap()
+    public Room[][] createSquareRoomMap(  )
     {
 
         //this equation will give us how many doors total we need to make a square map
@@ -101,6 +98,10 @@ public class RoomFactory
         return rooms;
         
     }
+
+    
+
+
 
 }
 
