@@ -1,9 +1,7 @@
 //team: garbage collector
 
 
-import java.io.Serializable;
-
-public abstract class TriviaQuestion implements Serializable
+public abstract class TriviaQuestion
 {
 	
 	
@@ -51,24 +49,19 @@ public abstract class TriviaQuestion implements Serializable
 
 
 
-        public boolean checkAnswer(String input)
-        {
+    public boolean checkAnswer(String input)
+    { 
+    	
+    	input = input.replaceAll(" ", "");
+    	input = input.toLowerCase();
 
-            input = input.replaceAll(" ", "");
-            input = input.toLowerCase();
-
-            if( this.answer.equals( input ) )
-                this.solved = true;
-
-
-            return this.solved;
+        if( this.answer.equals( input ) )
+            this.solved = true;
 
 
-        }
+        return this.solved;
 
-    public String getanswer()
-    {
-        return this.answer;
+
     }
 
 
@@ -78,6 +71,10 @@ public abstract class TriviaQuestion implements Serializable
 
         return      this.solved;
 
+    }
+    public String getAnswer()
+    {
+        return this.answer;
     }
 
 

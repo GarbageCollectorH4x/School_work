@@ -33,7 +33,7 @@ public class Maze implements Serializable {
     {
         int row = 0;
         int column = 0;
-        player1.setLocation(row,column);
+        setPlayerLocation(row,column);
     }
     
     
@@ -97,7 +97,48 @@ public class Maze implements Serializable {
         
         
     }
-    
+
+    private void setPlayerLocation(int row, int column)
+    {
+
+        player1.setLocation(row, column);
+        maze[row][column].visit();
+
+    }
+
+    public void movePlayerLocation(int x)
+    {
+
+        int[] loc= player1.getLocation();
+        int r=loc[0];
+        int c=loc[1];
+
+
+        switch(x)
+        {
+            case 1:
+                r--;
+                break;
+
+            case 2:
+                r++;
+                break;
+
+            case 3:
+                c--;
+                break;
+
+            case 4:
+                c++;
+                break;
+
+        }
+
+
+        player1.setLocation(r, c);
+        maze[r][c].visit();
+
+    }
     
     
     public void enterRoom()
@@ -113,33 +154,33 @@ public class Maze implements Serializable {
         
         if(maze[r][c].getShowHero() == 'E')
         {
-        	
-        	
+
+
             if(checkForWin())
             {
-            	
+
                 System.out.println("congrats you win");
-                
+
             }
             else
                 System.out.println("You are not at the end yet.");
-        
+
         }
     
-    
+
     }
-    
-    
-    
+
+
+
     public boolean checkForWin()
     {
-    	
-    	
+
+
         int[] loc = player1.getLocation();
-        
+
         return loc[0] == 4 && loc[1] == 4;
-        
-        
+
+
     }
     
     public int checkPossMoves()
@@ -150,7 +191,7 @@ public class Maze implements Serializable {
     	for(int i = 0; i < this.maze.length; i++)
     	{
     		
-    		for(int j = 0; j < this.maze[i].length; i++)
+    		for(int j = 0; j < this.maze[i].length; j++)
     		{
     			
     			if( this.maze[i][j].hasBeenVisited() )

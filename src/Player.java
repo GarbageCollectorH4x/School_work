@@ -13,6 +13,11 @@ public class Player implements Serializable {
         this.p_name = readPlayerName();
         location = new int[2];
     }
+    public Player(String name)
+    {
+        this.p_name = name;
+        location = new int[2];
+    }
 
     private static String readPlayerName()
     {
