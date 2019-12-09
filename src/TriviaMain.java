@@ -3,7 +3,7 @@ import java.util.Iterator;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
-public class TriviaMain implements Serializable {//start class
+public class TriviaMain implements Serializable {
     //enter this string to cheat when asked question.
     private final static String _CHEAT_ = "1337";
 
@@ -39,8 +39,6 @@ public class TriviaMain implements Serializable {//start class
                                 saveBehavior(maze, player1);
                                 break;
 
-
-                            /////load game behavior/////
                             case 3:
                                 try {
 
@@ -53,8 +51,6 @@ public class TriviaMain implements Serializable {//start class
 
                                 }
                                 break;
-                            /////load game behavior//////
-
 
                             case 5:
                                 maze.displayTheDungeon();
@@ -63,7 +59,7 @@ public class TriviaMain implements Serializable {//start class
                         }
 
 
-                    } while (menuNumber != 4 && !maze.checkForWin() && maze.checkPossMoves() != 0);
+                    } while (menuNumber != 4 && !maze.checkForWin() && maze.pathExists());
 
 
                 } while (playAgain());
@@ -180,19 +176,19 @@ public class TriviaMain implements Serializable {//start class
 
     private static void movePlayer(Maze maze, Iterator<TriviaQuestion> qList) {
 
-
-        int choice;
-
+        String ans;
+        boolean choice;
         Scanner kb = new Scanner(System.in);
+        do {
+            playerMoveset();
+            ans = kb.nextLine();
+            choice = Pattern.matches("[1-4]",ans);
+        }while(!choice);
+        int num = Integer.parseInt(ans);
 
-        playerMoveset();
 
 
-        choice = kb.nextInt();
-        kb.nextLine();
-
-
-        Door door = getDoor(maze, choice);
+        Door door = getDoor(maze, num);
 
         if (!door.isPermaLocked())//if door is answered wrong or its a wall
         {
@@ -218,12 +214,9 @@ public class TriviaMain implements Serializable {//start class
 
                 door.setLock(answer);
 
-                if(answer)
-                {
+                if (answer) {
                     System.out.println("Correct!");
-                }
-                else
-                {
+                } else {
                     System.out.println("Incorrect!");
                 }
             }
@@ -231,7 +224,7 @@ public class TriviaMain implements Serializable {//start class
             if (!door.isLocked())//if question has been answered correctly
             {
 
-                maze.movePlayerLocation(choice);
+                maze.movePlayerLocation(num);
 
             }
 

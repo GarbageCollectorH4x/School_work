@@ -4,6 +4,8 @@
 //func:   +Maze(row,column)
 
 import java.io.Serializable;
+import java.awt.Point;
+import java.util.HashMap;
 
 public class Maze implements Serializable {
 
@@ -20,7 +22,6 @@ public class Maze implements Serializable {
         setExit();
     }
 
-
     public Player getPlayer1() {
         return player1;
     }
@@ -35,8 +36,7 @@ public class Maze implements Serializable {
         int column = 0;
         setPlayerLocation(row,column);
     }
-    
-    
+
     public void printMazeroom()
     {
         int[] heroloc=player1.getLocation();
@@ -48,8 +48,7 @@ public class Maze implements Serializable {
         System.out.println(room[1]);
         System.out.println(room[2]);
     }
-    
-    
+
     public void displayTheDungeon()
     {
 
@@ -87,8 +86,7 @@ public class Maze implements Serializable {
         
         maze[herolocation[0]][herolocation[1]].setShowHero(' ');
     }
-    
-    
+
     private void setExit()
     {
     	
@@ -139,8 +137,7 @@ public class Maze implements Serializable {
         maze[r][c].visit();
 
     }
-    
-    
+
     public void enterRoom()
     {
     	
@@ -170,8 +167,6 @@ public class Maze implements Serializable {
 
     }
 
-
-
     public boolean checkForWin()
     {
 
@@ -182,38 +177,116 @@ public class Maze implements Serializable {
 
 
     }
-    
-    public int checkPossMoves()
-    {
-    	int count = 0;
-    	
-    	
-    	for(int i = 0; i < this.maze.length; i++)
-    	{
-    		
-    		for(int j = 0; j < this.maze[i].length; j++)
-    		{
-    			
-    			if( this.maze[i][j].hasBeenVisited() )
-    				count += this.maze[i][j].availInteractions();
-    			
-    		}
-    		
-    	}
-    	if(count == 0)
-        {
-            System.out.println("UH OH NO MORE POSSIBLE WAYS TO EXIT MAZE. " + player1.getP_name() + " YOU LOSE!");
-        }
-    	
-    	return count;
-    	
-    }
-    
-    
+
     public Room getRoom(int x, int y)
     {
     	
     	return this.maze[x][y];
     	
+    }
+
+    public boolean canMoveFrom(int x, int y, int dir)
+    {
+
+        return maze[ x ][ y ].canGo(dir);
+
+    }
+
+    public boolean pathExists()
+    {
+
+        Point end = new Point(4,4);
+
+        HashMap<Point, Boolean> rooms_searched = new HashMap<Point,Boolean>();
+
+        rooms_searched.put(end, true);
+
+        String path = pathFinder(rooms_searched, end, "->END");
+
+        //System.out.println(path);
+
+        if(path.contains("YOU"))
+            return true;
+
+        return false;
+    }
+
+    @SuppressWarnings("unchecked")
+    private String pathFinder( HashMap<Point, Boolean> rv , Point room, String path)
+    {
+
+
+        rv = (HashMap<Point, Boolean>) rv.clone();
+        rv.put(room, true);
+
+
+        int[] p_loc = player1.getLocation();
+
+        //BASE CASE: if room contains player
+        if( room.x == p_loc[0] && room.y == p_loc[1] )
+            return "YOU"+path;
+
+
+        Point temp = new Point( room.x-1, room.y );
+        String pathCheck = "";
+
+
+
+        //if up hasnt been searched and we can go up
+        if( temp.x >= 0 && temp.x <= 4 && temp.y >= 0 && temp.y <= 4 )
+        {
+            if( !rv.containsKey( temp ) && canMoveFrom(room.x,room.y, 0) )
+            {
+                pathCheck = pathFinder(rv, temp, "->down"+path);
+            }
+            if( !pathCheck.contains("BAD_PATH") && pathCheck.contains("YOU") )
+                return pathCheck;
+        }
+
+
+        //if left hasnt been searched and we can go left
+        temp.x = room.x;
+        temp.y = room.y-1;
+        if( temp.x >= 0 && temp.x <= 4 && temp.y >= 0 && temp.y <= 4 )
+        {
+            if( !rv.containsKey( temp ) && canMoveFrom(room.x,room.y, 3))
+            {
+                pathCheck = pathFinder(rv, temp, "->right"+path);
+            }
+            if( !pathCheck.contains("BAD_PATH") && pathCheck.contains("YOU") )
+                return pathCheck;
+        }
+
+
+        //if down hasnt been searched and we can go down
+        temp.x = room.x+1;
+        temp.y = room.y;
+        if( temp.x >= 0 && temp.x <= 4 && temp.y >= 0 && temp.y <= 4 )
+        {
+            if( !rv.containsKey( temp ) && canMoveFrom(room.x,room.y, 2))
+            {
+                pathCheck = pathFinder(rv, temp, "->up"+path);
+            }
+            if( !pathCheck.contains("BAD_PATH") && pathCheck.contains("YOU") )
+                return pathCheck;
+        }
+
+
+
+        //if right hasnt been and we can go right
+        temp.x = room.x;
+        temp.y = room.y + 1;
+        if( temp.x >= 0 && temp.x <= 4 && temp.y >= 0 && temp.y <= 4 )
+        {
+            if( !rv.containsKey( temp ) && canMoveFrom(room.x,room.y, 1))
+            {
+                pathCheck = pathFinder(rv, temp, "->left"+path);
+            }
+            if( !pathCheck.contains("BAD_PATH") && pathCheck.contains("YOU") )
+                return pathCheck;
+        }
+
+        return "BAD_PATH";
+
     }
 }

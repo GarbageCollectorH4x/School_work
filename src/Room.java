@@ -181,15 +181,10 @@ public class Room implements Serializable
 		return 			temp;
 
 	}
-	
-	
-	
-	public boolean trapped()
-	{
-		
-		return ( doors[0].isLocked() && doors[1].isLocked() && doors[2].isLocked() && doors[3].isLocked() );
-		
-	}
 
+	public boolean canGo(int dir)
+	{
+		return this.doors[dir].canInteract();
+	}
 
 }
