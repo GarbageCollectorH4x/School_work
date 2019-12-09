@@ -4,7 +4,6 @@ import java.util.Scanner;
 import java.util.regex.Pattern;
 
 public class TriviaMain implements Serializable {
-    //enter this string to cheat when asked question.
     private final static String _CHEAT_ = "1337";
 
     public static void main(String[] args) {//start main
@@ -109,7 +108,7 @@ public class TriviaMain implements Serializable {
 
             saveGame(maze, player1);
 
-        } catch (IOException | ClassNotFoundException e) {
+        } catch (IOException e) {
 
             e.printStackTrace();
 
@@ -182,21 +181,18 @@ public class TriviaMain implements Serializable {
         do {
             playerMoveset();
             ans = kb.nextLine();
-            choice = Pattern.matches("[1-4]",ans);
-        }while(!choice);
+            choice = Pattern.matches("[1-4]", ans);
+        } while (!choice);
         int num = Integer.parseInt(ans);
-
 
 
         Door door = getDoor(maze, num);
 
-        if (!door.isPermaLocked())//if door is answered wrong or its a wall
-        {
+        if (!door.isPermaLocked()) {
 
-            if (door.isLocked())//if question hasnt been asked/answered yet
-            {
+            if (door.isLocked()) {
 
-                //question answer behavior//
+
                 TriviaQuestion question = qList.next();
 
                 question.readQuestion();
@@ -204,10 +200,8 @@ public class TriviaMain implements Serializable {
 
                 String input = kb.nextLine();
                 boolean answer = question.checkAnswer(input);
-                //question answer behavior//
 
 
-                //CHEAT BYPASS. WILL ANSWER QUESTION RIGHT.//
                 if (input.equals(_CHEAT_))
                     answer = true;
 
@@ -221,8 +215,7 @@ public class TriviaMain implements Serializable {
                 }
             }
 
-            if (!door.isLocked())//if question has been answered correctly
-            {
+            if (!door.isLocked()) {
 
                 maze.movePlayerLocation(num);
 
@@ -272,7 +265,7 @@ public class TriviaMain implements Serializable {
 
     }
 
-    private static void saveGame(Maze maze, Player p1) throws IOException, ClassNotFoundException {
+    private static void saveGame(Maze maze, Player p1) throws IOException {
         FileOutputStream fileout = new FileOutputStream("SavedGame.txt");
         ObjectOutputStream objout = new ObjectOutputStream(fileout);
         objout.writeObject(maze);
@@ -369,6 +362,6 @@ public class TriviaMain implements Serializable {
 
         return choice;
 
-    }//end main menu
+    }
 
-}//end Trivia Main
+}
