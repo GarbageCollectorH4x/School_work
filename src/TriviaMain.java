@@ -279,7 +279,7 @@ public class TriviaMain implements Serializable {
         return new ObjectInputStream(In);
     }
 
-    private static Database databaseUpload() {//start db upload method
+    private static Database databaseUpload() {
         Database db = new Database();
         String input;
         int choice;
