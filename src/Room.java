@@ -1,7 +1,8 @@
 //team: garbage collector
 
-
-public class Room
+import java.io.Serializable;
+ 
+public class Room implements Serializable
 {	
 
 
@@ -29,11 +30,15 @@ public class Room
     	this.visited = false;
 	
     }
+    
+    
 
     public void visit()
     {
     	this.visited = true;
     }
+    
+    
 	
 	public Door up()
 	{
@@ -119,10 +124,12 @@ public class Room
 	}
 	
 	
+	
 	public Character getShowHero()
 	{
 		return this.space;
 	}
+	
 	
 	
 	public String row0()
@@ -139,6 +146,7 @@ public class Room
 	}
 	
 	
+	
 	public String row1()
 	{
 		
@@ -153,6 +161,7 @@ public class Room
 	}
 	
 	
+	
 	public String row2()
 	{
 		
@@ -165,6 +174,7 @@ public class Room
 		return temp;
 		
 	}
+	
 	
 	
 	public String[] draw()
@@ -182,13 +192,14 @@ public class Room
 	}
 	
 	
-	
-	public boolean trapped()
+
+	public boolean canGo(int dir)
 	{
 		
-		return ( doors[0].isLocked() && doors[1].isLocked() && doors[2].isLocked() && doors[3].isLocked() );
+		return this.doors[dir].canInteract();
 		
 	}
-
+	
+	
 
 }

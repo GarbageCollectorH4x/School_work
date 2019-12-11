@@ -10,7 +10,8 @@ public class MultipleChoice extends TriviaQuestion
 
     
     public MultipleChoice(String q, String ans, String hint, 
-                        String fa0, String fa1, String fa2){
+                        String fa0, String fa1, String fa2)
+    {
     	
         super(q,ans,hint);
         this.setChoiceList(ans, fa0, fa1, fa2);
@@ -19,7 +20,10 @@ public class MultipleChoice extends TriviaQuestion
 
     
     private void setChoiceList(String cho1, String cho2,
-                                String cho3, String cho4){
+                                String cho3, String cho4)
+    {
+    	
+    	
         this.choiceList = new ArrayList<String>();
         this.choiceList.add(cho1);
         this.choiceList.add(cho2);

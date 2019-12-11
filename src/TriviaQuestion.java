@@ -72,6 +72,13 @@ public abstract class TriviaQuestion
         return      this.solved;
 
     }
+    
+    
+    
+    public String getAnswer()
+    {
+        return this.answer;
+    }
 
 
     
